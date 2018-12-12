@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dream.Business.Abstract;
 using Dream.Business.Extensions;
+using Dream.Business.Filters;
 using Dream.Business.TransferModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace Dream.WebApi.Controllers
         }
 
         [HttpPost("start/{taskId}")]
+        [TypeFilter(typeof(TaskIdValidator))]
         public async Task<TaskDto> StartTask(int taskId)
         {
             var result = await _workflowService.StartTaskAsync(taskId);
@@ -27,6 +29,7 @@ namespace Dream.WebApi.Controllers
         }
 
         [HttpPost("reopen/{taskId}")]
+        [TypeFilter(typeof(TaskIdValidator))]
         public async Task<TaskDto> ReopenTask(int taskId)
         {
             var result = await _workflowService.ReopenTaskAsync(taskId);
@@ -34,6 +37,7 @@ namespace Dream.WebApi.Controllers
         }
 
         [HttpPost("close/{taskId}")]
+        [TypeFilter(typeof(TaskIdValidator))]
         public async Task<TaskDto> CloseTask(int taskId)
         {
             var result = await _workflowService.CloseTaskAsync(taskId);

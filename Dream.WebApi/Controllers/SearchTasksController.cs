@@ -10,7 +10,7 @@ namespace Dream.WebApi.Controllers
     /// Search methods for tasks.
     /// </summary>
     [Route("api/[controller]")]
-    [TypeFilter(typeof(ModelStateValidator))]
+    [TypeFilter(typeof(InputStateValidator))]
     public class SearchTasksController : Controller
     {
         private readonly ITaskSearchService _searchService;

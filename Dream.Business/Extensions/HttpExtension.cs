@@ -16,8 +16,8 @@ namespace Dream.Business.Extensions
         {
             if (error == null)
                 return result;
-
-            response.OverrideResponse(StatusCodes.Status400BadRequest, error);
+            var json = new {Error = error}.SerializeToJson();
+            response.OverrideResponse(StatusCodes.Status400BadRequest, json);
             return null;
         }
 
@@ -30,6 +30,15 @@ namespace Dream.Business.Extensions
                 response.WriteAsync(message);
                 return Task.CompletedTask;
             });
+        }
+
+        public static string SerializeToJson<T>(this T content)
+        {
+            string json =
+                JsonConvert.SerializeObject(content,
+                    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
+
+            return json;
         }
     }
 }

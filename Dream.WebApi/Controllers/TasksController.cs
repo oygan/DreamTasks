@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dream.Business.Abstract;
 using Dream.Business.Extensions;
+using Dream.Business.Filters;
 using Dream.Business.TransferModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace Dream.WebApi.Controllers
     /// This controller contains methods to create, read, update and delete tasks.
     /// </summary>
     [Route("api/[controller]")]
+    [TypeFilter(typeof(InputStateValidator))]
     public class TasksController : Controller
     {
         private readonly ITaskEditorService _editorService;
@@ -20,6 +22,7 @@ namespace Dream.WebApi.Controllers
         }
 
         [HttpGet("{taskId}")]
+        [TypeFilter(typeof(TaskIdValidator))]
         public async Task<TaskDto> GetTask(int taskId)
         {
             var result = await _editorService.GetTaskAsync(taskId);
@@ -34,6 +37,7 @@ namespace Dream.WebApi.Controllers
         }
 
         [HttpPut("{taskId}")]
+        [TypeFilter(typeof(TaskIdValidator))]
         public async Task<TaskDto> PutTask(int taskId, [FromBody] NewTaskDto task)
         {
             var result = await _editorService.UpdateTaskAsync(taskId, task);
@@ -41,6 +45,7 @@ namespace Dream.WebApi.Controllers
         }
 
         [HttpDelete("{taskId}")]
+        [TypeFilter(typeof(TaskIdValidator))]
         public async Task<TaskDto> DeleteTask(int taskId)
         {
             var result = await _editorService.DeleteTaskAsync(taskId);

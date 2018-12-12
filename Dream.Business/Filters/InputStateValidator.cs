@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Dream.Business.Filters
 {
     /// <summary>
-    /// Common validation filter.
+    /// Input model validation filter.
     /// </summary>
-    public class ModelStateValidator : IAsyncActionFilter
+    public class InputStateValidator : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
