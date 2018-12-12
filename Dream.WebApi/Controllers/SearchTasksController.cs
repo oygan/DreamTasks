@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Dream.Business.Abstract;
+using Dream.Business.Filters;
 using Dream.Business.TransferModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Dream.WebApi.Controllers
     /// Search methods for tasks.
     /// </summary>
     [Route("api/[controller]")]
+    [TypeFilter(typeof(ModelStateValidator))]
     public class SearchTasksController : Controller
     {
         private readonly ITaskSearchService _searchService;
